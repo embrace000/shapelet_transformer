@@ -19,7 +19,25 @@ def seq_generate(line) :
     # emb_dim = np.delete(emb_dim, 0, axis=0)
     return   temp1
 
-
+def do_word():
+    perd_length=0
+    seq_lenth=len(df1)
+    area_num=int(seq_lenth/per_num)
+    for i in range (per_num) :
+        j = random.randint(i*area_num+perd_length,(i+1)*area_num+perd_length)
+        df2 = pd.DataFrame(seq_generate(str(line[random.randint(1, len(line))])))
+        df1 = pd.DataFrame(np.insert(df1.values, j, df2, axis=0))
+        perd_length=perd_length+len(df2)
+    
+    
+    df1.to_csv('emb_adversical.csv')
+    
+    
+    for m in range (len(df1)):
+            label = np.hstack((label, 1))
+    label = np.delete(label, 0, axis=0)
+    data2 = pd.DataFrame(label)
+    data2.to_csv('label_adversical.csv')
 
 if __name__ == '__main__':
 
